@@ -17,10 +17,14 @@ int pselect(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds,
 1. pselect使用timespec结构，而不使用timeval结构
 
 ```c
-struct timespec {							struct timeval {
-    time_t tv_sec;	//秒						   long tv_sec;	//秒
-	long tv_nsec;	//纳秒					  long tv_usec;   //微秒				   
-};										   };
+struct timespec {							
+    time_t tv_sec;	//秒						   
+	long tv_nsec;	//纳秒					  			   
+};
+struct timeval {
+	long tv_sec;	//秒	
+	long tv_usec;   //微秒
+};
 ```
 
 2. pselect函数增加了第六个参数，一个指向信号掩码的指针。
