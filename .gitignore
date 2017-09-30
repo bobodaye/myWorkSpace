@@ -234,3 +234,8 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+
+#ignore .vcxproj .vcxproj.filters files
+*.vcxproj
+*.vcxproj.filters
+*.sln
