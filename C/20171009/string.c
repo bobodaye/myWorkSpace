@@ -37,7 +37,7 @@ char *strcat(char *strDes, const char *strSrc)
         ++strDes;
     }
     while((*strDes++ = *strSrc++) != '\0') //依次从串strSrc不断拷贝字符到strDes中，
-        ;								   //直到到达strSrc串的末尾
+        ;				   //直到到达strSrc串的末尾
 
     return address;
 }
