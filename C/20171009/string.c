@@ -182,7 +182,7 @@ void *memchr(const void *buf, int c, int count)
 }
 
 /*
- * 作用：比较s指向的内存中每一字节和t指向内存的count bytes
+ * 作用：比较s指向的内存中每一字节和t指向内存的count bytes的大小
 */
 int memcmp(const void *s, const void *t, int count)
 {
