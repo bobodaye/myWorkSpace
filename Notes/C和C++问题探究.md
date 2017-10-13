@@ -20,7 +20,9 @@ delete [] pBase;
 //在这种情况下，调用delete [] pBase会不会调用虚析构函数？
 ```
 **关键问题**：`sizeof(Base)` 可能不等于`sizeof(Derived)`。
+
 **分析：**
+
 1. 如果能够调用虚析构函数，那么需要获取虚函数表vptr的地址，基于这个逻辑，要调用所有的虚析构函数，就要能够找到对应的vptr，那么主要问题就是考虑如何来找这个vptr了。
 
 2. `delete [] pBase`，它是根据pBase指针的步长，来找vptr的，pBase[0]能够第一个vptr，那么这里需要注意了，pBase[1]究竟能否找到第二个vptr，由于`sizeof(Derived)`并不一定等于`sizeof(Base)`，因此有可能pBase[1]指向的并不是vptr，那么也就无法调用子类的虚函数，此时会出现Segmentation fault。
