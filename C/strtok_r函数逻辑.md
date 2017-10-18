@@ -4,59 +4,59 @@
 //在NetBSD中strtok的实现:
 char* strtok_r(char* string_org, const char* demial, char** last)
 {
-	const char* spanp; //span表示分隔，p表示指针
-	char c, sc; //c表示char字符，sc表示 span char
-	char* tok;  //token表示分隔的段
+    const char* spanp; //span表示分隔，p表示指针
+    char c, sc; //c表示char字符，sc表示 span char
+    char* tok;  //token表示分隔的段
  
-	//当开始结尾都为NULL的时候，说明没有字符被查找，所以返回NULL
-	if (string_org == NULL  && (string_org = *last) == NULL)
-	{
-	    return (NULL);
-	}
- 
-	//由goto组成的循环是在扫描字符串的时候，当遇到所需要匹配的字符时，略过这个字符。        
-cout:
-	c = *string_org++;
-    
-	for (spanp = demial; (sc = *spanp++) != 0; )
+    //当开始结尾都为NULL的时候，说明没有字符被查找，所以返回NULL
+    if (string_org == NULL  && (string_org = *last) == NULL)
     {
-    	if (c == sc)
+        return (NULL);
+    }
+ 
+    //由goto组成的循环是在扫描字符串的时候，当遇到所需要匹配的字符时，略过这个字符。        
+cout:
+    c = *string_org++;
+    
+    for (spanp = demial; (sc = *spanp++) != 0; )
+    {
+        if (c == sc)
         {
-        	goto cout;
+            goto cout;
         }
     }
  
 	//下一个字符为0，则表示到达了搜索结果，把last置为NULL，并返回NULL            
-	if (c == 0)
-	{
-	    *last = NULL;
-	    return (NULL);
-	}
- 
-	//把原始的字符串指针回退。            
-	tok = string_org - 1;
-	
-	//开始扫描字符串中是否含有要匹配的字符，之后把这个匹配字符之前的部分返回。
-	//这看似是个无限循环，但当源字符串和匹配字符串都走到结尾时，也就是string_org和sc都为NULL时，最外层循环最后会走到return(tok)结束循环。
-	for (;;)
+    if (c == 0)
     {
-	    c = *string_org++;
-	    spanp = demial;
+	    *last = NULL;
+        return (NULL);
+    }
+ 
+    //把原始的字符串指针回退。            
+    tok = string_org - 1;
+	
+    //开始扫描字符串中是否含有要匹配的字符，之后把这个匹配字符之前的部分返回。
+    //这看似是个无限循环，但当源字符串和匹配字符串都走到结尾时，也就是string_org和sc都为NULL时，最外层循环最后会走到return(tok)结束循环。
+    for (;;)
+    {
+        c = *string_org++;
+        spanp = demial;
 	    
-	    do 
+        do 
         {
-	        if ((sc = *spanp++) == c) 
+            if ((sc = *spanp++) == c) 
             {
-	            if (c == 0)
+                if (c == 0)
                 {
-	                string_org = NULL;
+                    string_org = NULL;
                 }
-	            else
+                else
                 {
-	                string_org[-1] = 0;
+                    string_org[-1] = 0;
                 }
-	            *last = string_org;
-	            return (tok);
+                *last = string_org;
+                return (tok);
             }
         } while (sc != 0);
     }	    
