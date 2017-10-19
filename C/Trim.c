@@ -5,7 +5,7 @@
 void Trim(char *strIn, char *strOut, size_t strOutSize)
 {
 	int i, j ;
-	assert(strIn || strOut);
+	assert((strIn != NULL) && (strOut != NULL));
 
     i = 0;
     j = strlen(strIn) - 1;
